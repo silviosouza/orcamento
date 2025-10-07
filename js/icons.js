@@ -1,6 +1,6 @@
 import {
   createIcons,
-  ArrowLeft,
+  // ArrowLeft,
   Plus,
   Edit,
   Trash2,
@@ -25,7 +25,7 @@ import {
 export const renderIcons = () => {
   createIcons({
     icons: {
-      ArrowLeft,
+      // ArrowLeft,
       Plus,
       Edit,
       Trash2,
