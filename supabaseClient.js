@@ -1,5 +1,5 @@
 <script type="module">
-  import { createClient } from '@supabase/supabase-js';
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 </script>
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
