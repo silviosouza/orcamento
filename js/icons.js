@@ -12,7 +12,7 @@ import {
   PackagePlus,
   Printer,
   ClipboardList
-} from '/node_modules/vite/deps/lucide';
+} from 'lucide';
 
 /**
  * Renders all icons with the `data-lucide` attribute on the page.
@@ -25,7 +25,7 @@ import {
 export const renderIcons = () => {
   createIcons({
     icons: {
-      // ArrowLeft,
+      ArrowLeft,
       Plus,
       Edit,
       Trash2,
@@ -36,7 +36,7 @@ export const renderIcons = () => {
       Folder,
       PackagePlus,
       Printer,
-      // ClipboardList
+      ClipboardList
     }
   });
 };
