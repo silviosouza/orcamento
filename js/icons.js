@@ -1,6 +1,6 @@
 import {
   createIcons,
-  // ArrowLeft,
+  ArrowLeft,
   Plus,
   Edit,
   Trash2,
@@ -11,8 +11,8 @@ import {
   Folder,
   PackagePlus,
   Printer,
-  // ClipboardList
-} from 'https://unpkg.com/lucide@latest';
+  ClipboardList
+} from 'lucide';
 
 /**
  * Renders all icons with the `data-lucide` attribute on the page.
