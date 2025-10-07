@@ -12,7 +12,7 @@ import {
   PackagePlus,
   Printer,
   ClipboardList
-} from 'lucide';
+} from '/lucide';
 
 /**
  * Renders all icons with the `data-lucide` attribute on the page.
