@@ -1,11 +1,5 @@
-import { createIcons, Users, Package, FileText, PlusCircle, ArrowLeft, Plus, Edit, Trash2, Folder, PackagePlus, Printer } from 'lucide';
+import { renderIcons } from './js/icons.js';
 
-// This function is called on multiple pages. We need to check for the existence of icons before rendering.
-const iconsToRender = { Users, Package, FileText, PlusCircle, ArrowLeft, Plus, Edit, Trash2, Folder, PackagePlus, Printer };
-const existingIconNodes = document.querySelectorAll('[data-lucide]');
-
-if (existingIconNodes.length > 0) {
-  createIcons({
-    icons: iconsToRender
-  });
-}
+// Render all icons on the page.
+// This will find all elements with the `data-lucide` attribute and replace them with SVGs.
+renderIcons();

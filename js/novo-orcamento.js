@@ -1,9 +1,7 @@
 import { supabase } from '../supabaseClient.js';
-import { createIcons, ArrowLeft, Plus, Trash2 } from 'lucide';
+import { renderIcons } from './icons.js';
 
-createIcons({
-    icons: { ArrowLeft, Plus, Trash2 }
-});
+renderIcons(); // Render static icons on page load
 
 const clienteSelect = document.getElementById('cliente_id');
 const productSelect = document.getElementById('product-select');
@@ -28,7 +26,7 @@ const loadInitialData = async () => {
     }
 
     // Carregar produtos
-    const { data: productsData, error: productsError } = await supabase.from('produtos').select('id, nome, valor').order('nome');
+    const { data: productsData, error: productsError } = await supabase.from('produtos').select('id, nome, preco').order('nome');
     if (productsError) console.error('Erro ao buscar produtos:', productsError);
     else {
         products = productsData;
@@ -58,7 +56,7 @@ const renderItems = () => {
         `;
         itemsTableBody.appendChild(row);
     });
-    createIcons({ icons: { Trash2 } });
+    renderIcons(); // Render icons for dynamically added rows
     updateTotal();
 };
 
@@ -82,8 +80,8 @@ addItemBtn.addEventListener('click', () => {
             produto_id: product.id,
             nome: product.nome,
             quantidade: 1,
-            valor_unitario: product.valor,
-            subtotal: product.valor
+            valor_unitario: product.preco,
+            subtotal: product.preco
         });
         renderItems();
     }

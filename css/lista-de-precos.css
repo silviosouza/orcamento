@@ -1,0 +1,121 @@
+/* Price List Page Specific Styles */
+#price-list-content {
+    background-color: var(--card-background-color);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.price-group {
+    margin-bottom: 3rem;
+}
+
+.price-group:last-child {
+    margin-bottom: 0;
+}
+
+.group-title {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card-price {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-card-price:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow-color);
+    border-color: var(--primary-color);
+}
+
+.product-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.price-list-footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  color: var(--text-light-color);
+  font-size: 0.9rem;
+  display: none; /* Hidden by default, shown in print */
+}
+
+.error-message {
+    color: var(--danger-color);
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+
+/* Print Styles */
+@media print {
+    body {
+        background-color: #fff;
+    }
+    #app {
+        padding: 0;
+        max-width: 100%;
+    }
+    .no-print, .no-print * {
+        display: none !important;
+    }
+    #price-list-content {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 1rem 0;
+        border: none;
+    }
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for printing */
+        gap: 1rem;
+    }
+    .product-card-price {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        padding: 1rem;
+    }
+    .price-list-footer {
+        display: block; /* Show footer in print */
+        border-top: 1px solid var(--border-color);
+        page-break-before: auto;
+    }
+    .group-title {
+        font-size: 1.5rem;
+    }
+    .product-name {
+        font-size: 1rem;
+    }
+    .product-price {
+        font-size: 1.2rem;
+    }
+}

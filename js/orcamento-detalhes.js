@@ -1,9 +1,7 @@
 import { supabase } from '../supabaseClient.js';
-import { createIcons, ArrowLeft, Printer } from 'lucide';
+import { renderIcons } from './icons.js';
 
-createIcons({
-    icons: { ArrowLeft, Printer }
-});
+renderIcons(); // Render static icons on page load
 
 const content = document.getElementById('orcamento-details-content');
 const loading = document.getElementById('loading-state');

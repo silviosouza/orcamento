@@ -1,9 +1,7 @@
 import { supabase } from '../supabaseClient.js';
-import { createIcons, ArrowLeft, Plus, Edit, Trash2 } from 'lucide';
+import { renderIcons } from './icons.js';
 
-createIcons({
-    icons: { ArrowLeft, Plus, Edit, Trash2 }
-});
+renderIcons(); // Render static icons on page load
 
 const tableBody = document.querySelector('#groups-table tbody');
 const loading = document.getElementById('loading-state');
@@ -62,7 +60,7 @@ const fetchGroups = async () => {
             `;
             tableBody.appendChild(row);
         });
-        createIcons({ icons: { Edit, Trash2 } });
+        renderIcons(); // Render icons for dynamically added rows
     }
 };
 

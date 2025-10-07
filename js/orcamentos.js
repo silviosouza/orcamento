@@ -1,9 +1,7 @@
 import { supabase } from '../supabaseClient.js';
-import { createIcons, ArrowLeft, Plus, FileText, Trash2 } from 'lucide';
+import { renderIcons } from './icons.js';
 
-createIcons({
-    icons: { ArrowLeft, Plus, FileText, Trash2 }
-});
+renderIcons(); // Render static icons on page load
 
 const tableBody = document.querySelector('#orcamentos-table tbody');
 const loading = document.getElementById('loading-state');
@@ -59,7 +57,7 @@ const fetchOrcamentos = async () => {
             `;
             tableBody.appendChild(row);
         });
-        createIcons({ icons: { FileText, Trash2 } });
+        renderIcons(); // Render icons for dynamically added rows
     }
 };
 

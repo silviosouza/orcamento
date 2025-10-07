@@ -1,9 +1,7 @@
 import { supabase } from '../supabaseClient.js';
-import { createIcons, ArrowLeft, Folder, PackagePlus, Edit, Trash2 } from 'lucide';
+import { renderIcons } from './icons.js';
 
-createIcons({
-    icons: { ArrowLeft, Folder, PackagePlus, Edit, Trash2 }
-});
+renderIcons(); // Render static icons on page load
 
 const tableBody = document.querySelector('#products-table tbody');
 const loading = document.getElementById('loading-state');
@@ -84,7 +82,7 @@ const fetchProducts = async () => {
             `;
             tableBody.appendChild(row);
         });
-        createIcons({ icons: { Edit, Trash2 } });
+        renderIcons(); // Render icons for dynamically added rows
     }
 };
 

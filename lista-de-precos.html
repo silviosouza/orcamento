@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Preços - Sistema de Orçamentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" class="page-container">
+        <header class="app-header no-print">
+            <a href="index.html" class="btn btn-secondary">
+                <i data-lucide="arrow-left"></i>
+                <span>Voltar</span>
+            </a>
+            <h1>Lista de Preços</h1>
+            <button class="btn btn-primary" id="print-btn">
+                <i data-lucide="printer"></i>
+                <span>Imprimir / Salvar PDF</span>
+            </button>
+        </header>
+
+        <main id="price-list-content">
+            <div id="loading-state" class="loading">
+                <p>Carregando lista de preços...</p>
+            </div>
+            <!-- Conteúdo da lista de preços será inserido aqui -->
+        </main>
+
+        <footer class="price-list-footer">
+             <p>&copy; 2025 Sistema de Orçamentos. Preços sujeitos a alteração sem aviso prévio.</p>
+        </footer>
+    </div>
+
+    <script type="module" src="/js/lista-de-precos.js"></script>
+</body>
+</html>
