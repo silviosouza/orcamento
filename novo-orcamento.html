@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Orçamento - Sistema de Orçamentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" class="page-container">
+        <header class="app-header">
+            <a href="index.html" class="btn btn-secondary">
+                <i data-lucide="arrow-left"></i>
+                <span>Voltar</span>
+            </a>
+            <h1>Novo Orçamento</h1>
+        </header>
+
+        <main class="form-container">
+            <form id="orcamento-form">
+                <div class="form-section">
+                    <h3>Dados do Orçamento</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="cliente_id">Cliente</label>
+                            <select id="cliente_id" name="cliente_id" required>
+                                <option value="">Carregando clientes...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="data">Data</label>
+                            <input type="date" id="data" name="data" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="observacoes">Observações</label>
+                        <textarea id="observacoes" name="observacoes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Itens do Orçamento</h3>
+                    <div class="item-selector">
+                         <div class="form-group">
+                            <label for="product-select">Adicionar Produto</label>
+                            <select id="product-select">
+                                <option value="">Selecione um produto...</option>
+                            </select>
+                        </div>
+                        <button type="button" id="add-item-btn" class="btn btn-secondary">
+                            <i data-lucide="plus"></i> Adicionar
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="orcamento-items-table">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Qtd.</th>
+                                    <th>Valor Unit.</th>
+                                    <th>Subtotal</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Itens adicionados aparecerão aqui -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="total-section">
+                    <h3>Total do Orçamento: <span id="total-orcamento">R$ 0,00</span></h3>
+                </div>
+
+                <div class="form-actions">
+                    <a href="orcamentos.html" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Salvar Orçamento</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script type="module" src="/js/novo-orcamento.js"></script>
+</body>
+</html>

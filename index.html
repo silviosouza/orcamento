@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Orçamentos</title>
+    <meta name="description" content="Um aplicativo para criar e gerenciar orçamentos de vendas." />
+    <meta property="og:title" content="Sistema de Orçamentos" />
+    <meta property="og:description" content="Um aplicativo para criar e gerenciar orçamentos de vendas." />
+    <meta property="og:image" content="https://i.ibb.co/67X3xfS/budget-app-preview.png" />
+    <meta property="og:image:alt" content="Pré-visualização da tela principal do sistema de orçamentos." />
+    <meta name="twitter:title" content="Sistema de Orçamentos" />
+    <meta name="twitter:description" content="Um aplicativo para criar e gerenciar orçamentos de vendas." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <h1>Sistema de Orçamentos</h1>
+        <a href="novo-orcamento.html" class="btn btn-primary" id="new-quote-btn">
+          <i data-lucide="plus-circle"></i>
+          <span>Novo Orçamento</span>
+        </a>
+      </header>
+      <main class="dashboard">
+        <div class="card">
+          <div class="card-icon">
+            <i data-lucide="users"></i>
+          </div>
+          <h2 class="card-title">Clientes</h2>
+          <p class="card-description">Gerencie sua base de clientes.</p>
+          <a href="clientes.html" class="btn btn-secondary">Gerenciar</a>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <i data-lucide="package"></i>
+          </div>
+          <h2 class="card-title">Produtos</h2>
+          <p class="card-description">Cadastre e organize seus produtos.</p>
+          <a href="produtos.html" class="btn btn-secondary">Gerenciar</a>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <i data-lucide="file-text"></i>
+          </div>
+          <h2 class="card-title">Orçamentos</h2>
+          <p class="card-description">Crie e consulte orçamentos.</p>
+          <a href="orcamentos.html" class="btn btn-secondary">Gerenciar</a>
+        </div>
+      </main>
+      <footer class="app-footer">
+        <p>&copy; 2025 Sistema de Orçamentos. Todos os direitos reservados.</p>
+      </footer>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

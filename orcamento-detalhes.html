@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Orçamento - Sistema de Orçamentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" class="page-container">
+        <header class="app-header no-print">
+            <a href="orcamentos.html" class="btn btn-secondary">
+                <i data-lucide="arrow-left"></i>
+                <span>Voltar</span>
+            </a>
+            <h1>Detalhes do Orçamento</h1>
+            <button class="btn btn-primary" onclick="window.print()">
+                <i data-lucide="printer"></i>
+                <span>Imprimir</span>
+            </button>
+        </header>
+
+        <main id="orcamento-details-content">
+            <div id="loading-state" class="loading">
+                <p>Carregando detalhes do orçamento...</p>
+            </div>
+            <!-- Conteúdo do orçamento será inserido aqui -->
+        </main>
+    </div>
+
+    <script type="module" src="/js/orcamento-detalhes.js"></script>
+</body>
+</html>
