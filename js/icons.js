@@ -12,7 +12,7 @@ import {
   PackagePlus,
   Printer,
   ClipboardList
-} from 'https://unpkg.com/lucide@latest/dist/umd/lucide.js';
+} from 'https://unpkg.com/lucide@latest';
 
 /**
  * Renders all icons with the `data-lucide` attribute on the page.
