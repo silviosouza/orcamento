@@ -11,7 +11,7 @@ import {
   Folder,
   PackagePlus,
   Printer,
-  ClipboardList
+  // ClipboardList
 } from 'https://unpkg.com/lucide@latest';
 
 /**
@@ -36,7 +36,7 @@ export const renderIcons = () => {
       Folder,
       PackagePlus,
       Printer,
-      ClipboardList
+      // ClipboardList
     }
   });
 };
