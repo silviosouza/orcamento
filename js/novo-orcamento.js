@@ -12,9 +12,11 @@ const totalOrcamentoSpan = document.getElementById('total-orcamento');
 const descontoInput = document.getElementById('desconto');
 const orcamentoForm = document.getElementById('orcamento-form');
 const dataInput = document.getElementById('data');
+const discountTypeSwitch = document.querySelectorAll('input[name="discount-type"]');
 
 let products = [];
 let orcamentoItems = [];
+let discountType = 'percent'; // 'percent' or 'valor'
 
 const formatCurrency = (value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
@@ -39,8 +41,22 @@ const loadInitialData = async () => {
 
 const updateTotals = () => {
     const totalBruto = orcamentoItems.reduce((sum, item) => sum + item.subtotal, 0);
-    const descontoPercent = parseFloat(descontoInput.value) || 0;
-    const descontoValor = totalBruto * (descontoPercent / 100);
+    const descontoInputValue = parseFloat(descontoInput.value) || 0;
+    let descontoValor = 0;
+
+    if (discountType === 'percent') {
+        const percent = Math.min(descontoInputValue, 100);
+        if (descontoInputValue > 100) {
+            descontoInput.value = 100;
+        }
+        descontoValor = totalBruto * (percent / 100);
+    } else { // 'valor'
+        descontoValor = Math.min(descontoInputValue, totalBruto);
+        if (descontoInputValue > totalBruto && totalBruto > 0) {
+            descontoInput.value = totalBruto.toFixed(2);
+        }
+    }
+    
     const totalLiquido = totalBruto - descontoValor;
 
     totalBrutoSpan.textContent = formatCurrency(totalBruto);
@@ -117,6 +133,21 @@ itemsTableBody.addEventListener('click', (e) => {
     }
 });
 
+discountTypeSwitch.forEach(input => {
+    input.addEventListener('change', (e) => {
+        discountType = e.target.value;
+        descontoInput.value = '0';
+        if (discountType === 'percent') {
+            descontoInput.max = '100';
+            descontoInput.step = '0.1';
+        } else {
+            descontoInput.removeAttribute('max');
+            descontoInput.step = '0.01';
+        }
+        updateTotals();
+    });
+});
+
 descontoInput.addEventListener('input', updateTotals);
 
 orcamentoForm.addEventListener('submit', async (e) => {
@@ -129,15 +160,24 @@ orcamentoForm.addEventListener('submit', async (e) => {
 
     const formData = new FormData(orcamentoForm);
     const totalBruto = orcamentoItems.reduce((sum, item) => sum + item.subtotal, 0);
-    const descontoPercent = parseFloat(descontoInput.value) || 0;
-    const totalLiquido = totalBruto * (1 - descontoPercent / 100);
+    const descontoInputValue = parseFloat(descontoInput.value) || 0;
+    let descontoValor = 0;
 
-    // FIX: Removed 'print_count' as it does not exist in the schema.
+    if (discountType === 'percent') {
+        descontoValor = totalBruto * (descontoInputValue / 100);
+    } else { // 'valor'
+        descontoValor = descontoInputValue;
+    }
+
+    descontoValor = Math.min(descontoValor, totalBruto);
+    const totalLiquido = totalBruto - descontoValor;
+    const descontoPercentParaSalvar = totalBruto > 0 ? (descontoValor / totalBruto) * 100 : 0;
+
     const orcamentoData = {
         cliente_id: formData.get('cliente_id'),
         created_at: formData.get('data'),
         observacoes: formData.get('observacoes'),
-        desconto: descontoPercent,
+        desconto: descontoPercentParaSalvar,
         valor_total: totalLiquido,
     };
 
@@ -149,7 +189,7 @@ orcamentoForm.addEventListener('submit', async (e) => {
         .single();
 
     if (orcamentoError) {
-        alert('Erro ao salvar o orçamento: ' + orcamentoError.message + '\n\nVerifique se as colunas `desconto` e `valor_total` existem na tabela `orcamentos`.');
+        alert('Erro ao salvar o orçamento: ' + orcamentoError.message);
         return;
     }
 
@@ -166,7 +206,6 @@ orcamentoForm.addEventListener('submit', async (e) => {
         .insert(itemsToInsert);
 
     if (itemsError) {
-        // Tenta reverter o orçamento principal se a inserção dos itens falhar
         await supabase.from('orcamentos').delete().eq('id', newOrcamento.id);
         alert('Erro ao salvar os itens do orçamento: ' + itemsError.message);
         return;
@@ -179,4 +218,6 @@ orcamentoForm.addEventListener('submit', async (e) => {
 
 // Inicialização
 dataInput.valueAsDate = new Date();
+descontoInput.step = '0.1';
+descontoInput.max = '100';
 loadInitialData();

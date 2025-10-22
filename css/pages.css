@@ -190,13 +190,63 @@ table tr:hover {
 .discount-group {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 0;
+    justify-content: flex-end;
+}
+.discount-group label {
     margin-bottom: 0;
 }
 .discount-group input {
-    width: 80px;
+    width: 100px;
     text-align: right;
 }
+
+/* Switch Field for Discount Type */
+.switch-field {
+  display: flex;
+  overflow: hidden;
+}
+
+.switch-field input {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+.switch-field label {
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  padding: 8px 16px;
+  margin-right: -1px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Standard syntax */
+}
+
+.switch-field label:first-of-type {
+  border-radius: 6px 0 0 6px;
+}
+
+.switch-field label:last-of-type {
+  border-radius: 0 6px 6px 0;
+}
+
+.switch-field input:checked + label {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: none;
+}
+
 
 /* Detalhes do Orçamento Page */
 #orcamento-details-content {
