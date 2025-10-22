@@ -42,11 +42,11 @@ const generateReport = async () => {
     const groupId = groupFilter.value;
     const groupBy = groupBySelect.value;
 
-    // FIX: Changed all references from 'data' to 'created_at' to match the database schema.
+    // FIX: Removed 'print_count' from select as it does not exist.
     let query = supabase
         .from('orcamentos')
         .select(`
-            id, created_at, valor_total, valor_bruto, desconto, print_count,
+            id, created_at, valor_total, desconto,
             clientes (id, nome),
             orcamento_itens (
                 quantidade,
@@ -120,7 +120,6 @@ const renderReport = (orcamentos, groupBy) => {
     let reportHtml = '';
     let totalGeral = 0;
     let totalOrcamentos = orcamentos.length;
-    let totalImpressoes = 0;
 
     for (const key in groupedData) {
         const group = groupedData[key];
@@ -137,20 +136,17 @@ const renderReport = (orcamentos, groupBy) => {
                                 <th>Data</th>
                                 ${groupBy !== 'cliente' ? '<th>Cliente</th>' : ''}
                                 <th>Valor Total</th>
-                                <th>Impressões</th>
                             </tr>
                         </thead>
                         <tbody>
         `;
         group.orcamentos.forEach(orc => {
-            totalImpressoes += orc.print_count || 0;
             reportHtml += `
                 <tr>
                     <td>#${orc.id}</td>
                     <td>${formatDate(orc.created_at)}</td>
                     ${groupBy !== 'cliente' ? `<td>${orc.clientes.nome}</td>` : ''}
                     <td>${formatCurrency(orc.valor_total)}</td>
-                    <td>${orc.print_count || 0}</td>
                 </tr>
             `;
         });
@@ -177,10 +173,6 @@ const renderReport = (orcamentos, groupBy) => {
                 <div class="summary-item">
                     <span class="summary-item-label">Nº de Orçamentos</span>
                     <span class="summary-item-value">${totalOrcamentos}</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-item-label">Total de Impressões</span>
-                    <span class="summary-item-value">${totalImpressoes}</span>
                 </div>
             </div>
         </div>

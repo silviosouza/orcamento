@@ -21,7 +21,7 @@ const loadOrcamentoDetails = async () => {
     }
 
     // Fetch orcamento principal e dados do cliente
-    // FIX: Changed 'data' column to 'created_at' to match the database schema.
+    // FIX: Removed 'print_count' as it does not exist in the schema.
     const { data: orcamento, error: orcamentoError } = await supabase
         .from('orcamentos')
         .select(`
@@ -29,9 +29,7 @@ const loadOrcamentoDetails = async () => {
             created_at,
             observacoes,
             valor_total,
-            valor_bruto,
             desconto,
-            print_count,
             clientes ( nome, email, telefone )
         `)
         .eq('id', orcamentoId)
@@ -39,7 +37,7 @@ const loadOrcamentoDetails = async () => {
 
     if (orcamentoError || !orcamento) {
         console.error('Erro ao buscar orçamento:', orcamentoError);
-        content.innerHTML = `<p>Orçamento não encontrado. Verifique se as colunas 'valor_bruto', 'desconto' e 'print_count' existem na tabela 'orcamentos'.</p>`;
+        content.innerHTML = `<p>Orçamento não encontrado. Verifique se a coluna 'desconto' existe na tabela 'orcamentos'.</p>`;
         loading.style.display = 'none';
         return;
     }
@@ -80,7 +78,7 @@ const renderDetails = (orcamento, items) => {
     });
 
     const hasDiscount = orcamento.desconto > 0;
-    const totalBruto = orcamento.valor_bruto ?? items.reduce((sum, item) => sum + (item.quantidade * item.valor_unitario), 0);
+    const totalBruto = items.reduce((sum, item) => sum + (item.quantidade * item.valor_unitario), 0);
 
     content.innerHTML = `
         <div class="details-header">
@@ -131,33 +129,8 @@ const renderDetails = (orcamento, items) => {
     `;
 };
 
-printBtn.addEventListener('click', async () => {
-    if (!orcamentoId) return;
-
-    // Incrementa o contador de impressão no banco de dados
-    const { data: current, error: fetchError } = await supabase
-        .from('orcamentos')
-        .select('print_count')
-        .eq('id', orcamentoId)
-        .single();
-    
-    if (fetchError) {
-        console.error("Erro ao buscar contagem de impressão:", fetchError.message);
-        // Prossegue com a impressão mesmo em caso de erro
-        window.print();
-        return;
-    }
-
-    const newCount = (current.print_count || 0) + 1;
-    const { error: updateError } = await supabase
-        .from('orcamentos')
-        .update({ print_count: newCount })
-        .eq('id', orcamentoId);
-
-    if (updateError) {
-        console.error("Erro ao atualizar contagem de impressão:", updateError.message);
-    }
-
+// FIX: Removed logic to update print_count from the database.
+printBtn.addEventListener('click', () => {
     // Dispara a impressão
     window.print();
 });

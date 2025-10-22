@@ -132,15 +132,13 @@ orcamentoForm.addEventListener('submit', async (e) => {
     const descontoPercent = parseFloat(descontoInput.value) || 0;
     const totalLiquido = totalBruto * (1 - descontoPercent / 100);
 
-    // FIX: Changed 'data' to 'created_at' to match the database schema.
+    // FIX: Removed 'print_count' as it does not exist in the schema.
     const orcamentoData = {
         cliente_id: formData.get('cliente_id'),
         created_at: formData.get('data'),
         observacoes: formData.get('observacoes'),
-        valor_bruto: totalBruto,
         desconto: descontoPercent,
         valor_total: totalLiquido,
-        print_count: 0
     };
 
     // 1. Inserir o orçamento principal
@@ -151,7 +149,7 @@ orcamentoForm.addEventListener('submit', async (e) => {
         .single();
 
     if (orcamentoError) {
-        alert('Erro ao salvar o orçamento: ' + orcamentoError.message + '\n\nVerifique se as colunas `valor_bruto`, `desconto` e `print_count` existem na tabela `orcamentos`.');
+        alert('Erro ao salvar o orçamento: ' + orcamentoError.message + '\n\nVerifique se as colunas `desconto` e `valor_total` existem na tabela `orcamentos`.');
         return;
     }
 
