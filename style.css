@@ -1,5 +1,6 @@
 @import url('css/pages.css');
 @import url('css/lista-de-precos.css');
+@import url('css/relatorios.css');
 
 :root {
   --primary-color: #007bff;

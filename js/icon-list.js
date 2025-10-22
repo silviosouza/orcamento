@@ -18,5 +18,8 @@ export {
   Folder,
   PackagePlus,
   Printer,
-  ClipboardList
+  ClipboardList,
+  BarChart2,
+  Filter,
+  Calendar
 } from 'lucide';

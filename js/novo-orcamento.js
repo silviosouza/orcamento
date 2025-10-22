@@ -7,7 +7,9 @@ const clienteSelect = document.getElementById('cliente_id');
 const productSelect = document.getElementById('product-select');
 const addItemBtn = document.getElementById('add-item-btn');
 const itemsTableBody = document.querySelector('#orcamento-items-table tbody');
+const totalBrutoSpan = document.getElementById('total-bruto');
 const totalOrcamentoSpan = document.getElementById('total-orcamento');
+const descontoInput = document.getElementById('desconto');
 const orcamentoForm = document.getElementById('orcamento-form');
 const dataInput = document.getElementById('data');
 
@@ -35,9 +37,14 @@ const loadInitialData = async () => {
     }
 };
 
-const updateTotal = () => {
-    const total = orcamentoItems.reduce((sum, item) => sum + item.subtotal, 0);
-    totalOrcamentoSpan.textContent = formatCurrency(total);
+const updateTotals = () => {
+    const totalBruto = orcamentoItems.reduce((sum, item) => sum + item.subtotal, 0);
+    const descontoPercent = parseFloat(descontoInput.value) || 0;
+    const descontoValor = totalBruto * (descontoPercent / 100);
+    const totalLiquido = totalBruto - descontoValor;
+
+    totalBrutoSpan.textContent = formatCurrency(totalBruto);
+    totalOrcamentoSpan.textContent = formatCurrency(totalLiquido);
 };
 
 const renderItems = () => {
@@ -57,7 +64,7 @@ const renderItems = () => {
         itemsTableBody.appendChild(row);
     });
     renderIcons(); // Render icons for dynamically added rows
-    updateTotal();
+    updateTotals();
 };
 
 
@@ -110,6 +117,8 @@ itemsTableBody.addEventListener('click', (e) => {
     }
 });
 
+descontoInput.addEventListener('input', updateTotals);
+
 orcamentoForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -119,11 +128,19 @@ orcamentoForm.addEventListener('submit', async (e) => {
     }
 
     const formData = new FormData(orcamentoForm);
+    const totalBruto = orcamentoItems.reduce((sum, item) => sum + item.subtotal, 0);
+    const descontoPercent = parseFloat(descontoInput.value) || 0;
+    const totalLiquido = totalBruto * (1 - descontoPercent / 100);
+
+    // FIX: Changed 'data' to 'created_at' to match the database schema.
     const orcamentoData = {
         cliente_id: formData.get('cliente_id'),
-        data: formData.get('data'),
+        created_at: formData.get('data'),
         observacoes: formData.get('observacoes'),
-        valor_total: orcamentoItems.reduce((sum, item) => sum + item.subtotal, 0)
+        valor_bruto: totalBruto,
+        desconto: descontoPercent,
+        valor_total: totalLiquido,
+        print_count: 0
     };
 
     // 1. Inserir o orçamento principal
@@ -134,7 +151,7 @@ orcamentoForm.addEventListener('submit', async (e) => {
         .single();
 
     if (orcamentoError) {
-        alert('Erro ao salvar o orçamento: ' + orcamentoError.message);
+        alert('Erro ao salvar o orçamento: ' + orcamentoError.message + '\n\nVerifique se as colunas `valor_bruto`, `desconto` e `print_count` existem na tabela `orcamentos`.');
         return;
     }
 

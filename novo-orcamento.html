@@ -9,7 +9,7 @@
 <body>
     <div id="app" class="page-container">
         <header class="app-header">
-            <a href="index.html" class="btn btn-secondary">
+            <a href="orcamentos.html" class="btn btn-secondary">
                 <i data-lucide="arrow-left"></i>
                 <span>Voltar</span>
             </a>
@@ -70,7 +70,14 @@
                 </div>
 
                 <div class="total-section">
-                    <h3>Total do Orçamento: <span id="total-orcamento">R$ 0,00</span></h3>
+                    <div class="total-details">
+                        <p>Total Bruto: <strong id="total-bruto">R$ 0,00</strong></p>
+                        <div class="form-group discount-group">
+                            <label for="desconto">Desconto (%):</label>
+                            <input type="number" id="desconto" name="desconto" min="0" max="100" step="0.1" value="0">
+                        </div>
+                        <h3>Total Líquido: <span id="total-orcamento">R$ 0,00</span></h3>
+                    </div>
                 </div>
 
                 <div class="form-actions">

@@ -22,21 +22,22 @@ const fetchOrcamentos = async () => {
     loading.style.display = 'block';
     tableBody.innerHTML = '';
 
+    // FIX: Changed 'data' column to 'created_at' to match the database schema.
     const { data: orcamentos, error } = await supabase
         .from('orcamentos')
         .select(`
             id,
-            data,
+            created_at,
             valor_total,
             clientes ( nome )
         `)
-        .order('data', { ascending: false });
+        .order('created_at', { ascending: false });
 
     loading.style.display = 'none';
 
     if (error) {
         console.error('Erro ao buscar orçamentos:', error);
-        tableBody.innerHTML = `<tr><td colspan="5">Erro ao carregar dados.</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="5">Erro ao carregar dados. Detalhe: ${error.message}</td></tr>`;
         return;
     }
 
@@ -48,7 +49,7 @@ const fetchOrcamentos = async () => {
             row.innerHTML = `
                 <td>#${orcamento.id}</td>
                 <td>${orcamento.clientes.nome}</td>
-                <td>${formatDate(orcamento.data)}</td>
+                <td>${formatDate(orcamento.created_at)}</td>
                 <td>${formatCurrency(orcamento.valor_total)}</td>
                 <td class="actions">
                     <a href="orcamento-detalhes.html?id=${orcamento.id}" class="btn-icon details-btn" title="Ver Detalhes"><i data-lucide="file-text"></i></a>

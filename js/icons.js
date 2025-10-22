@@ -11,7 +11,10 @@ import {
   Folder,
   PackagePlus,
   Printer,
-  ClipboardList
+  ClipboardList,
+  BarChart2,
+  Filter,
+  Calendar
 } from 'lucide';
 
 /**
@@ -36,7 +39,10 @@ export const renderIcons = () => {
       Folder,
       PackagePlus,
       Printer,
-      ClipboardList
+      ClipboardList,
+      BarChart2,
+      Filter,
+      Calendar
     }
   });
 };

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - Sistema de Orçamentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" class="page-container">
+        <header class="app-header no-print">
+            <a href="index.html" class="btn btn-secondary">
+                <i data-lucide="arrow-left"></i>
+                <span>Voltar</span>
+            </a>
+            <h1>Relatório de Orçamentos</h1>
+            <button class="btn btn-primary" id="print-report-btn">
+                <i data-lucide="printer"></i>
+                <span>Imprimir Relatório</span>
+            </button>
+        </header>
+
+        <main>
+            <div class="form-container no-print" id="report-filters">
+                <div class="form-section">
+                    <h3>Filtros do Relatório</h3>
+                    <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <div class="form-group">
+                            <label for="start-date">Data Início</label>
+                            <input type="date" id="start-date" name="start-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="end-date">Data Fim</label>
+                            <input type="date" id="end-date" name="end-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-client">Cliente</label>
+                            <select id="filter-client" name="filter-client">
+                                <option value="">Todos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-group">Grupo de Produto</label>
+                            <select id="filter-group" name="filter-group">
+                                <option value="">Todos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="group-by">Agrupar por</label>
+                            <select id="group-by" name="group-by">
+                                <option value="cliente">Cliente</option>
+                                <option value="data">Data</option>
+                                <option value="grupo_produto">Grupo de Produto</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" id="generate-report-btn">
+                            <i data-lucide="filter"></i>
+                            <span>Gerar Relatório</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loading-state" class="loading" style="display: none;">
+                <p>Gerando relatório...</p>
+            </div>
+
+            <div class="report-container" id="report-output">
+                <p class="report-placeholder">Selecione os filtros e clique em "Gerar Relatório" para começar.</p>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/js/relatorios.js"></script>
+</body>
+</html>

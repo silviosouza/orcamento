@@ -178,8 +178,24 @@ table tr:hover {
     margin-top: 2rem;
     text-align: right;
 }
+.total-section .total-details {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+}
 .total-section h3 {
     font-size: 1.5rem;
+}
+.discount-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+}
+.discount-group input {
+    width: 80px;
+    text-align: right;
 }
 
 /* Detalhes do Orçamento Page */
@@ -205,6 +221,20 @@ table tr:hover {
     border-top: 1px solid var(--border-color);
     text-align: right;
 }
+.total-breakdown {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+.total-breakdown p {
+    font-size: 1rem;
+}
+.total-breakdown h3 {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+}
+
 
 /* Print Styles */
 @media print {
